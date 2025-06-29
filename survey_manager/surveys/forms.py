@@ -36,7 +36,7 @@ QuestionFormSet = inlineformset_factory(
 )
 
 ChoiceFormSet = inlineformset_factory(
-    Question, Choice
+    Question, Choice,
     form=ChoiceForm,
     extra=2,
     can_delete=True
