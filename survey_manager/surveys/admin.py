@@ -30,6 +30,7 @@ class ResponseAdmin(admin.ModelAdmin):
     search_fields = ('survey__title', 'respondent__username')
     
     
+    #register the application
 admin.site.register(Survey, SurveyAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Response, ResponseAdmin)

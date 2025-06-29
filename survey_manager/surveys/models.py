@@ -45,7 +45,7 @@ class Choice(models.Model):
     def __str__(self):
         return self.text
     
-class Response(models.model):
+class Response(models.Model):
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, related_name='responses')
     respondent = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -53,7 +53,7 @@ class Response(models.model):
     def __str__(self):
         return f"Response to {self.survey.title} by {self.respondent or 'Anonymous'}"
     
-class Answer(models.model):
+class Answer(models.Model):
     response = models.ForeignKey(Response, on_delete=models.CASCADE, related_name='answers')
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     text_answer = models.TextField(blank=True, null=True)
@@ -61,3 +61,16 @@ class Answer(models.model):
     
     def __str__(self):
         return f"Answer to {self.question.text[:50]}"
+    
+    
+    
+
+
+#create the user 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True)
+    
+    def __str__(self):
+        return self.user.username
