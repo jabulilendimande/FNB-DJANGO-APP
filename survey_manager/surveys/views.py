@@ -18,8 +18,25 @@ from .forms import SurveyForm, QuestionFormSet
 class SurveyListView(ListView):
     model = Survey
     template_name = 'survey/survey_list.html'   #fetch the template file under survey_manager
-    contect_object_name = 'surveys'
+    context_object_name = 'surveys'
     
     def get_queryset(self):
         return Survey.objects.filter(is_active=True)
     
+class UserSurveyListView(LoginRequiredMixin, ListView):
+    model = Survey
+    template_name = 'survey/survey_list.html'
+    context_object_name = 'surveys'
+
+    def get_queryset(self):
+        return Survey.objects.filter(created_by=self.request.user)
+
+
+class SurveyDeyailView(DetailView):
+    model = Survey
+    template_name = 'survey/survey_list.html'
+    context_object_name = 'survey'
+    
+class SurveyCreateView(LoginRequiredMixin, CreateView):
+    model = Survey
+    form_class = SurveyForm:forms.py
